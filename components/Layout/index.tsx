@@ -1,17 +1,17 @@
-import { Badge, Dropdown, Menu, Divider } from "antd";
-import React, { BaseSyntheticEvent, ReactElement } from "react";
+import { Badge, Dropdown, Menu, Divider } from 'antd';
+import React, { BaseSyntheticEvent, ReactElement } from 'react';
 import {
   DownOutlined,
   UserOutlined,
   ArrowLeftOutlined,
   LogoutOutlined,
   CreditCardOutlined,
-} from "@ant-design/icons";
-import Link from "next/link";
-import styles from "./index.module.css";
-import { useGlobalState } from "../../context";
-import { useRouter } from "next/router";
-import { Cluster } from "@solana/web3.js";
+} from '@ant-design/icons';
+import Link from 'next/link';
+import styles from './index.module.css';
+import { useGlobalState } from '../../context';
+import { useRouter } from 'next/router';
+import { Cluster } from '@solana/web3.js';
 
 type DomEvent = {
   domEvent: BaseSyntheticEvent;
@@ -20,13 +20,13 @@ type DomEvent = {
 };
 
 const Layout = ({ children }: { children: JSX.Element }): ReactElement => {
-  const { network, setNetwork, account, setAccount, setBalance, setMnemonic } =
+  const { network, setNetwork, account, setAccount, setBalance } =
     useGlobalState();
 
   const router = useRouter();
 
   const selectNetwork = (e: DomEvent) => {
-    const networks: Array<Cluster> = ["mainnet-beta", "devnet", "testnet"];
+    const networks: Array<Cluster> = ['mainnet-beta', 'devnet', 'testnet'];
     const selectedNetwork = networks[parseInt(e.key) - 1];
     setNetwork(selectedNetwork);
   };
@@ -34,23 +34,22 @@ const Layout = ({ children }: { children: JSX.Element }): ReactElement => {
   const menu = (
     <Menu>
       <Menu.Item onClick={selectNetwork} key="1">
-        Mainnet {network === "mainnet-beta" && <Badge status="processing" />}
+        Mainnet {network === 'mainnet-beta' && <Badge status="processing" />}
       </Menu.Item>
       <Menu.Item onClick={selectNetwork} key="2">
-        Devnet {network === "devnet" && <Badge status="processing" />}
+        Devnet {network === 'devnet' && <Badge status="processing" />}
       </Menu.Item>
       <Menu.Item onClick={selectNetwork} key="3">
-        Testnet {network === "testnet" && <Badge status="processing" />}
+        Testnet {network === 'testnet' && <Badge status="processing" />}
       </Menu.Item>
     </Menu>
   );
 
   const handleLogout = () => {
     setAccount(null);
-    setNetwork("devnet");
+    setNetwork('devnet');
     setBalance(0);
-    setMnemonic("");
-    router.push("/");
+    router.push('/');
   };
 
   const profile = (
@@ -82,7 +81,7 @@ const Layout = ({ children }: { children: JSX.Element }): ReactElement => {
             <Dropdown className={styles.top} overlay={menu} disabled={!account}>
               <a
                 className="ant-dropdown-link"
-                onClick={(e) => e.preventDefault()}
+                onClick={e => e.preventDefault()}
               >
                 Network <DownOutlined />
               </a>
@@ -96,7 +95,7 @@ const Layout = ({ children }: { children: JSX.Element }): ReactElement => {
               >
                 <a
                   className="ant-dropdown-link"
-                  onClick={(e) => e.preventDefault()}
+                  onClick={e => e.preventDefault()}
                 >
                   <UserOutlined />
                 </a>
@@ -107,7 +106,7 @@ const Layout = ({ children }: { children: JSX.Element }): ReactElement => {
 
         {children}
 
-        {router.pathname !== "/" && (
+        {router.pathname !== '/' && (
           <Link href="/" passHref>
             <a className={styles.back}>
               <ArrowLeftOutlined /> Back Home
@@ -115,11 +114,11 @@ const Layout = ({ children }: { children: JSX.Element }): ReactElement => {
           </Link>
         )}
 
-        <Divider style={{ marginTop: "3rem" }} />
+        <Divider style={{ marginTop: '3rem' }} />
 
         <footer className={styles.footerHome}>
           <p>
-            MyWallet tutorial created by{" "}
+            MyWallet tutorial created by{' '}
             <a className={styles.footerLink} href="https://learn.figment.io/">
               Figment Learn
             </a>

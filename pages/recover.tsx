@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { NextPage } from "next";
-import { useRouter } from "next/router";
-import { Form, Input, Button } from "antd";
-import { useGlobalState } from "../context";
-import { LoadingOutlined } from "@ant-design/icons";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { Form, Input, Button } from 'antd';
+import { useGlobalState } from '../context';
+import { LoadingOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 
 // Import Bip39 to convert a phrase to a seed:
 
@@ -15,15 +15,14 @@ const Recover: NextPage = () => {
   const [form] = Form.useForm();
   const router = useRouter();
 
-  const { account, setAccount, setMnemonic } = useGlobalState();
+  const { account, setAccount } = useGlobalState();
 
   // *Step 6*: implement a function that recovers an account based on a mnemonic phrase
   const handleImport = async (values: any) => {
-    console.log("Recovery functionality not implemented yet!");
+    console.log('Recovery functionality not implemented yet!');
 
     setLoading(true);
     const inputMnemonic = values.phrase.trim().toLowerCase();
-    setMnemonic(inputMnemonic);
 
     // (a) review the import guidance on lines 9 and 11
     // (b) convert the mnemonic to seed bytes
@@ -42,13 +41,13 @@ const Recover: NextPage = () => {
 
   useEffect(() => {
     if (account) {
-      router.push("/wallet");
+      router.push('/wallet');
     }
   }, [account, router]);
 
   return (
     <>
-      <h1 className={"title"}>Import Wallet</h1>
+      <h1 className={'title'}>Import Wallet</h1>
 
       <p>Enter your secret recovery phrase here to restore your wallet.</p>
 
@@ -59,22 +58,22 @@ const Recover: NextPage = () => {
         requiredMark={false}
         onFinish={handleImport}
       >
-        <div style={{ overflow: "hidden" }}>
+        <div style={{ overflow: 'hidden' }}>
           <Form.Item
             name="phrase"
             label="Secret Recovery Phrase"
             rules={[
               {
                 required: true,
-                message: "Please enter your recovery phrase",
+                message: 'Please enter your recovery phrase',
               },
               {
                 validator(_, value) {
-                  if (value.trim().split(" ").length === 12) {
+                  if (value.trim().split(' ').length === 12) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
-                    new Error("Recovery phrase must be 12 words long")
+                    new Error('Recovery phrase must be 12 words long'),
                   );
                 },
               },
@@ -82,7 +81,7 @@ const Recover: NextPage = () => {
           >
             <Input
               placeholder="Paste secret recovery phrase from clipboard"
-              style={{ minWidth: "500px" }}
+              style={{ minWidth: '500px' }}
             />
           </Form.Item>
         </div>
